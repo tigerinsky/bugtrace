@@ -96,12 +96,14 @@
         arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
         arr.push("内容为：");
         arr.push(UE.getEditor('editor').getPlainTxt());
-        alert(arr.join('\n'))
+        alert(arr.join('\n'));
+        console.log(arr.join('\n'));
     }
     function setContent(isAppendTo) {
         var arr = [];
         arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
-        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        UE.getEditor('editor').setContent('欢迎使用ueditor<img src="/ueditor/php/upload/image/20150522/1432309224414503.png" title="1432309224414503.png" _src="/ueditor/php/upload/image/20150522/1432309224414503.png" alt="blob.png">', isAppendTo);
+        //UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
         alert(arr.join("\n"));
     }
     function setDisabled() {
