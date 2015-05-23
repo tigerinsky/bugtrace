@@ -10,7 +10,22 @@ class bugtrack extends MY_Controller{
         $this->load->model('bugtrack/bugtrack_model','bugtrack_model');
         $this->bug_status = array('1'=>'未修复', '2'=>'已解决');
         $this->bug_priority = array('1'=>'高', '2'=>'正常', '3'=>'低');
-        $this->bug_handle_user = array('1'=>'飞哥', '2'=>'云少', '3'=>'大闪');
+        $this->bug_handle_user = array(
+        							'1'=>'飞哥',
+        							'2'=>'云少',
+        							'3'=>'凯峰',
+        							'4'=>'女神',
+        							'5'=>'雪冰',
+        							'6'=>'丁丁',
+        							'7'=>'健健',
+        							'8'=>'昆仔',
+        							'9'=>'凯伦',
+        							'10'=>'春晖',
+        							'11'=>'胡老师',
+        							'12'=>'徐旭',
+        							'13'=>'玉玺',
+        							'14'=>'大闪',
+        						);
     }
     
     //默认调用控制器
