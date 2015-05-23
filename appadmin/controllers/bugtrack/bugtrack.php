@@ -333,6 +333,7 @@ class bugtrack extends MY_Controller{
         // 反转义
         //$info['content'] = stripslashes($info['content']);
         
+        $info['publish_time'] = time();
         if( $info['title']!='' && $info['content'] != '') {
             if($this->bugtrack_model->create_info($info)){
                 show_tips('操作成功','','','add');
