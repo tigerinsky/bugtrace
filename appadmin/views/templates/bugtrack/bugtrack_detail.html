@@ -96,15 +96,19 @@
 						<div class="table-list">
 						<table width="100%" cellspacing="0">
 					        <tbody>
-					    		<{foreach from=$log_list item=row}>
-					    		<tr>
-					    			<td align="right"><{$handle_user_list[$row['old_handle_user']]}></td>
-					    			<td align="center">=></td>
-					    			<td align="left"><{$handle_user_list[$row['new_handle_user']]}></td>
-					    			<td align="center"><{$log_type_list[$row['type']]}></td>
-					    			<td align="center"><{$row['ctime']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
-					    		</tr>
-			            		<{/foreach}>
+					        	<{if $log_list }>
+						    		<{foreach from=$log_list item=row}>
+						    		<tr>
+						    			<td align="right"><{$handle_user_list[$row['old_handle_user']]}></td>
+						    			<td align="center">=></td>
+						    			<td align="left"><{$handle_user_list[$row['new_handle_user']]}></td>
+						    			<td align="center"><{$log_type_list[$row['type']]}></td>
+						    			<td align="center"><{$row['ctime']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
+						    		</tr>
+				            		<{/foreach}>
+				            	<{else}>
+				            		[无历史记录]
+			            		<{/if}>
 			            	</tdoby>
 			            </table>
 			            </div>
