@@ -52,8 +52,8 @@
             <tr>
             <th width="16"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
             <th width="40">ID</th>
-            <th width="60">BUG标题</th>
-            <th width="180">BUG内容</th>
+            <th width="120">BUG标题</th>
+            <th width="60">BUG内容</th>
             <th width="40">处理人</th>
             <th width="60">优先级</th>
             <th width="60">状态</th>
@@ -68,7 +68,7 @@
             <td align="center"><input class="inputcheckbox " name="ids[]" value="<{$row['id']}>" type="checkbox"></td>
             <td width="60" align="center"><{$row['id']}></td>
             <td align="center"><{$row['title']}></td>
-            <td align="center"><{$row['content']|escape|truncate:60:"...":true}></td>
+            <td align="center"><{$row['content']|escape|truncate:15:"...":true}></td>
 			<td align="center"><{$handle_user_list[$row['handle_user']]}></td>
 			<td align="center"><{$priority_list[$row['priority']]}></td>
 			<td align="center"><{if $row['status'] == '1'}><span class="RedBox"><{$status_list[$row['status']]}></span><{else}><span class="RedBox GreenBox"><{$status_list[$row['status']]}></span><{/if}></td>
