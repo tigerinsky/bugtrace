@@ -182,13 +182,31 @@ class Bugtrack_log_model extends CI_Model {
      */
     public function update_info($info,$id){
         $where="id={$id}";
-        $update_rule=$this->db->update_string('ci_bugtrack', $info, $where); 
+        $update_rule=$this->db->update_string('ci_bugtrack_log', $info, $where); 
         if($this->db->query($update_rule)){
             return true;
         }else{
             return false;
         }
     }
+    
+    /**
+     * 查询出指定的编号数据
+     * @param int $id 数据ID编号
+     * @return int $data 返回数据内容
+     */
+    public function get_info_by_bugid($id){
+    	$query_data = "SELECT `id`, `bugtrack_id`, `old_handle_user`, `new_handle_user`, `type`, `ctime` FROM ci_bugtrack_log WHERE bugtrack_id=?";
+    	$result_data = $this->dbr->query($query_data,array($id));
+    	$list_data = $result_data->result_array();
+    	if (count($list_data) > 0) {
+    		$result = $list_data;
+    	} else {
+    		$result = '';
+    	}
+    	return $result;
+    }
+    
 }
 /* End of file this file */
 ?>

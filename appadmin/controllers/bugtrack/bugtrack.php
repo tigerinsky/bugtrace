@@ -8,6 +8,7 @@ class bugtrack extends MY_Controller{
         parent::__construct();
         $this->dbr=$this->load->database('dbr',TRUE);
         $this->load->model('bugtrack/bugtrack_model','bugtrack_model');
+        $this->load->model('bugtrack/bugtrack_log_model','bugtrack_log_model');
         $this->bug_status = array('1'=>'未修复', '2'=>'已解决');
         $this->bug_priority = array('1'=>'高', '2'=>'正常', '3'=>'低');
         $this->bug_handle_user = array(
@@ -369,7 +370,42 @@ class bugtrack extends MY_Controller{
     //执行修改BUG操作
     function bugtrack_edit_do(){
         $id = $this->input->post('id');
+        // 新提交的数据
         $info = $this->input->post('info');
+        // 老的数据
+        $old_info = $this->bugtrack_model->get_info_by_id($id);
+        
+        if ($info['status'] == '2') { // 已修复
+        	$item = array(
+        			'bugtrack_id' => $id,
+        			'old_handle_user' => $old_info['handle_user'],
+        			'new_handle_user' => $old_info['handle_user'],
+        			'type' => 3,
+        			'ctime' => time(),
+        	);
+        	$this->bugtrack_log_model->create_info($item);
+        } elseif ($info['handle_user'] != $old_info['handle_user']) { // 转发
+        	$is_info = $this->bugtrack_log_model->get_info_by_bugid($id);
+        	if ($is_info == '') { // 新建
+        		$item = array(
+        				'bugtrack_id' => $id,
+        				'old_handle_user' => $old_info['handle_user'],
+        				'new_handle_user' => $old_info['handle_user'],
+        				'type' => 1,
+        				'ctime' => time(),
+        		);
+        		$this->bugtrack_log_model->create_info($item);
+        	}
+        	// 转发
+        	$item = array(
+        			'bugtrack_id' => $id,
+        			'old_handle_user' => $old_info['handle_user'],
+        			'new_handle_user' => $info['handle_user'],
+        			'type' => 2,
+        			'ctime' => time(),
+        	);
+        	$this->bugtrack_log_model->create_info($item);
+        }
         
         if($info['title'] != '' && $info['content'] != '') {
             if($this->bugtrack_model->update_info($info, $id)){
@@ -387,18 +423,25 @@ class bugtrack extends MY_Controller{
     	$this->load->library('form');
     	$bugtrack_id = $this->input->get('id');
     	$info = $this->bugtrack_model->get_info_by_id($bugtrack_id);
-    
+    	
+    	$log_list = $this->bugtrack_log_model->get_info_by_bugid($bugtrack_id);
+    	
     	$handle_user_list = $this->bug_handle_user;
     	$handle_user_sel = Form::select($handle_user_list, $info['handle_user'], 'id="handle_user" name="info[handle_user]"', '请选择');
     	$priority_list = $this->bug_priority;
     	$priority_sel = Form::select($priority_list, $info['priority'], 'id="priority" name="info[priority]"', '请选择');
     	$status_list = $this->bug_status;
     	$status_sel = Form::select($status_list, $info['status'], 'id="status" name="info[status]"', '请选择');
-    
+    	
+    	$log_type_list = array('1'=>'新建', '2'=>'转发', '3'=>'已修复');
+    	
     	$this->smarty->assign('info',$info);
     	$this->smarty->assign('handle_user_sel', $handle_user_sel);
     	$this->smarty->assign('priority_sel', $priority_sel);
     	$this->smarty->assign('status_sel', $status_sel);
+    	$this->smarty->assign('handle_user_list', $handle_user_list);
+    	$this->smarty->assign('log_type_list', $log_type_list);
+    	$this->smarty->assign('log_list', $log_list);
     	$this->smarty->assign('random_version', rand(100,999));
     	$this->smarty->assign('show_dialog','true');
     	$this->smarty->assign('show_validator','true');

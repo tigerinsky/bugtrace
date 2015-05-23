@@ -90,6 +90,26 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td>处理历史</td>
+					<td>
+						<div class="table-list">
+						<table width="100%" cellspacing="0">
+					        <tbody>
+					    		<{foreach from=$log_list item=row}>
+					    		<tr>
+					    			<td align="right"><{$handle_user_list[$row['old_handle_user']]}></td>
+					    			<td align="center">=></td>
+					    			<td align="left"><{$handle_user_list[$row['new_handle_user']]}></td>
+					    			<td align="center"><{$log_type_list[$row['type']]}></td>
+					    			<td align="center"><{$row['ctime']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
+					    		</tr>
+			            		<{/foreach}>
+			            	</tdoby>
+			            </table>
+			            </div>
+					</td>
+				</tr>
 			</table>
 		    <div class="bk15"></div>
 		    <input type="hidden" id="bug_content" name="info[content]" value="<{$info['content']}>"/>
