@@ -5,6 +5,20 @@
 </div>
 <style type="text/css"> 
 	html{_overflow-y:scroll}
+	.RedBox , .GreenBox , .BlueBox ,.OrangeBox{
+		padding:3px;
+		color:#fff;
+		display:inline-block;
+		line-height:16px;
+		font-size:12px;
+	}
+	.RedBox{
+		background:#cc3300;
+	}
+	.GreenBox{
+		background:#339900;
+	}
+	
 </style>
 <div class="pad_10">
 <div id="searchid">
@@ -57,7 +71,7 @@
             <td align="center"><{$row['content']|escape|truncate:60:"...":true}></td>
 			<td align="center"><{$handle_user_list[$row['handle_user']]}></td>
 			<td align="center"><{$priority_list[$row['priority']]}></td>
-			<td align="center"><{$status_list[$row['status']]}></td>
+			<td align="center"><{if $row['status'] == '1'}><span class="RedBox"><{$status_list[$row['status']]}></span><{else}><span class="RedBox GreenBox"><{$status_list[$row['status']]}></span><{/if}></td>
             <td align="center"><{$row['publish_time']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
             <td align="center">
                 <a href="javascript:edit(<{$row['id']}>,'<{$row['title']}>')">修改</a> | 
