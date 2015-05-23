@@ -305,9 +305,11 @@ class bugtrack extends MY_Controller{
         $handle_user_list = $this->bug_handle_user;
         $handle_user_sel = Form::select($handle_user_list, $info['handle_user'], 'id="handle_user" name="info[handle_user]"', '请选择');
         $priority_list = $this->bug_priority;
-        $priority_sel = Form::select($priority_list, $info['priority'], 'id="priority" name="info[priority]"', '请选择');
+        //$priority_sel = Form::select($priority_list, $info['priority'], 'id="priority" name="info[priority]"', '优先级');
+        $priority_sel = Form::select($priority_list, 2, 'id="priority" name="info[priority]"', '优先级');
         $status_list = $this->bug_status;
-        $status_sel = Form::select($status_list, $info['status'], 'id="status" name="info[status]"', '请选择');
+        //$status_sel = Form::select($status_list, $info['status'], 'id="status" name="info[status]"', '状态');
+        $status_sel = Form::select($status_list, 1, 'id="status" name="info[status]"', '状态');
 
         $this->smarty->assign('handle_user_sel', $handle_user_sel);
         $this->smarty->assign('priority_sel', $priority_sel);
