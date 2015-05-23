@@ -405,6 +405,16 @@ class bugtrack extends MY_Controller{
         			'ctime' => time(),
         	);
         	$this->bugtrack_log_model->create_info($item);
+        } elseif ($info['status'] != $old_info['status']) {
+        	// 转发
+        	$item = array(
+        			'bugtrack_id' => $id,
+        			'old_handle_user' => $old_info['handle_user'],
+        			'new_handle_user' => $info['handle_user'],
+        			'type' => 2,
+        			'ctime' => time(),
+        	);
+        	$this->bugtrack_log_model->create_info($item);
         }
         
         if($info['title'] != '' && $info['content'] != '') {
