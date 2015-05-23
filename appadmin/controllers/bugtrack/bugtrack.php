@@ -382,6 +382,28 @@ class bugtrack extends MY_Controller{
         }
     }
     
+    //查看BUG详情
+    function bugtrack_detail(){
+    	$this->load->library('form');
+    	$bugtrack_id = $this->input->get('id');
+    	$info = $this->bugtrack_model->get_info_by_id($bugtrack_id);
+    
+    	$handle_user_list = $this->bug_handle_user;
+    	$handle_user_sel = Form::select($handle_user_list, $info['handle_user'], 'id="handle_user" name="info[handle_user]"', '请选择');
+    	$priority_list = $this->bug_priority;
+    	$priority_sel = Form::select($priority_list, $info['priority'], 'id="priority" name="info[priority]"', '请选择');
+    	$status_list = $this->bug_status;
+    	$status_sel = Form::select($status_list, $info['status'], 'id="status" name="info[status]"', '请选择');
+    
+    	$this->smarty->assign('info',$info);
+    	$this->smarty->assign('handle_user_sel', $handle_user_sel);
+    	$this->smarty->assign('priority_sel', $priority_sel);
+    	$this->smarty->assign('status_sel', $status_sel);
+    	$this->smarty->assign('random_version', rand(100,999));
+    	$this->smarty->assign('show_dialog','true');
+    	$this->smarty->assign('show_validator','true');
+    	$this->smarty->display('bugtrack/bugtrack_detail.html');
+    }
     
     //单条删除要闻
     function tweet_del_one_ajax(){

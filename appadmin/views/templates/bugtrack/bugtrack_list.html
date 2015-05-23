@@ -67,7 +67,7 @@
             <tr>
             <td align="center"><input class="inputcheckbox " name="ids[]" value="<{$row['id']}>" type="checkbox"></td>
             <td width="60" align="center"><{$row['id']}></td>
-            <td><{$row['title']}></td>
+            <td><a href="javascript:detail(<{$row['id']}>,'<{$row['title']}>')"><{$row['title']}></a></td>
             <td align="center"><{$row['content']|escape|truncate:15:"...":true}></td>
 			<td align="center"><{$handle_user_list[$row['handle_user']]}></td>
 			<td align="center"><{$priority_list[$row['priority']]}></td>
@@ -124,6 +124,12 @@ function edit(id, img_type) {
 	window.top.art.dialog({id:'edit'}).close();
 	window.top.art.dialog({title:'编辑信息',id:'edit',iframe:'<{site_url url='/bugtrack/bugtrack/bugtrack_edit/'}>?id='+id,width:'800',height:'600'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
 }
+
+function detail(id, img_type) {
+	window.top.art.dialog({id:'edit'}).close();
+	window.top.art.dialog({title:'查看详情',id:'edit',iframe:'<{site_url url='/bugtrack/bugtrack/bugtrack_detail/'}>?id='+id,width:'800',height:'600'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+}
+
 function sug_one(obj,aid) {
 	window.top.art.dialog({content:'确认推荐吗？', fixed:true, style:'confirm',id:'sug_one'}, 
     function(){
