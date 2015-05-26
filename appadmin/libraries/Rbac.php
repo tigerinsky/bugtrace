@@ -183,6 +183,7 @@ class Rbac{
 				$user_login=array(
 						'keyno'=>$login_user['id'],
 						'user_name'=>$login_user['tname'],
+						'uname'=>$login_user['uname'],
 						'user_local'=>encrypt($login_user['uname'].$login_user['pass_word']),
 						'role_id'=>$login_user['role_id'],
 						'ip'=>ip(),
@@ -203,6 +204,7 @@ class Rbac{
 		$hash=$this->CI->session->userdata('wb_hash');
 		$admin_session=array(
 			'username'=>$log_infos['user_name'],
+			'uname'=>$log_infos['uname'],
 			'wb_hash'=>$hash['val'],
 		);
 		$this->CI->smarty->assign('admin_session',$admin_session);
@@ -230,6 +232,7 @@ class Rbac{
 			$user_login=array(
 					'keyno'=>$login_user['id'],
 					'user_name'=>$login_user['tname'],
+					'uname'=>$login_user['uname'],
 					'user_local'=>encrypt($login_user['uname'].$login_user['pass_word']),
 					'role_id'=>$login_user['role_id'],
 					'ip'=>ip(),

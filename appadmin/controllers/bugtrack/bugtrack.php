@@ -7,6 +7,11 @@ class bugtrack extends MY_Controller{
     function __construct() {
         parent::__construct();
         $this->dbr=$this->load->database('dbr',TRUE);
+        $this->CI =& get_instance();
+        $this->CI->config->load('config_rbac',TRUE);
+        $this->rbac_config=$this->CI->config->item('config_rbac');
+        $this->log_infos = $log_infos = $this->CI->session->userdata($this->rbac_config['rbac_admin_auth_key']);
+        //print_r($this->log_infos);
         $this->load->model('bugtrack/bugtrack_model','bugtrack_model');
         $this->load->model('bugtrack/bugtrack_log_model','bugtrack_log_model');
         $this->bug_status = array('1'=>'未修复', '2'=>'已解决');
@@ -26,6 +31,22 @@ class bugtrack extends MY_Controller{
         							'12'=>'徐旭',
         							'13'=>'玉玺',
         							'14'=>'大闪',
+        						);
+        $this->bug_login_user = array(
+        							'xiaofei'=>array('id'=>'1', 'name'=>'飞哥'),
+        							'denyun'=>array('id'=>'2', 'name'=>'邓云'),
+        							'kaifeng'=>array('id'=>'3', 'name'=>'凯峰'),
+        							'wangyi'=>array('id'=>'4', 'name'=>'王怡'),
+        							'xuebing'=>array('id'=>'5', 'name'=>'雪冰'),
+        							'dingding'=>array('id'=>'6', 'name'=>'丁丁'),
+        							'liujian'=>array('id'=>'7', 'name'=>'刘健'),
+        							'ouyangkun'=>array('id'=>'8', 'name'=>'欧阳昆'),
+        							'kailun'=>array('id'=>'9', 'name'=>'凯伦'),
+        							'chunhui'=>array('id'=>'10', 'name'=>'春晖'),
+        							'hulaoshi'=>array('id'=>'11', 'name'=>'胡老师'),
+        							'xuxu'=>array('id'=>'12', 'name'=>'徐旭'),
+        							'yuxi'=>array('id'=>'13', 'name'=>'玉玺'),
+        							'dashan'=>array('id'=>'14', 'name'=>'大闪'),
         						);
     }
     
@@ -48,12 +69,20 @@ class bugtrack extends MY_Controller{
             
             $search_filed=array(
                 'handle_user'=>array(
-                    '1'=>'handle_user=1',
-                    '2'=>'handle_user=2',
-                    '3'=>'handle_user=3',
-                    '4'=>'handle_user=4',
-                    '5'=>'handle_user=5',
-                    '6'=>'handle_user=6',
+                    '1'=>'handle_user=1 OR create_user=1',
+                    '2'=>'handle_user=2 OR create_user=2',
+                    '3'=>'handle_user=3 OR create_user=3',
+                    '4'=>'handle_user=4 OR create_user=4',
+                    '5'=>'handle_user=5 OR create_user=5',
+                    '6'=>'handle_user=6 OR create_user=6',
+                    '7'=>'handle_user=7 OR create_user=7',
+                    '8'=>'handle_user=8 OR create_user=8',
+                    '9'=>'handle_user=9 OR create_user=9',
+                    '10'=>'handle_user=10 OR create_user=10',
+                    '11'=>'handle_user=11 OR create_user=11',
+                    '12'=>'handle_user=12 OR create_user=12',
+                    '13'=>'handle_user=13 OR create_user=13',
+                    '14'=>'handle_user=14 OR create_user=14',
                 ),
                 'priority'=>array(
                     '1'=>'priority=1',
@@ -112,7 +141,7 @@ class bugtrack extends MY_Controller{
         $priority_list = $this->bug_priority;
         $status_list = $this->bug_status;
         $search_arr['status_sel']=$this->form->select($status_list, $status_id,'name="status_id"','状态');
-        $search_arr['handle_user_sel']=$this->form->select($handle_user_list, $handle_user_id,'name="handle_user_id"','处理人');
+        $search_arr['handle_user_sel']=$this->form->select($handle_user_list, $handle_user_id,'name="handle_user_id"','创建人或处理人');
         $search_arr['priority_sel']=$this->form->select($priority_list, $priority_id,'name="priority_id"','优先级');
         $this->smarty->assign('search_arr', $search_arr);
         $this->smarty->assign('handle_user_list', $handle_user_list);
@@ -128,14 +157,12 @@ class bugtrack extends MY_Controller{
      * 对外提供的接口
      * 
      */ 
-    function get_img_list(){
+    function get_bug_list(){
         $request = $this->request_array;
         $response = $this->response_array;
         
-        $devicetype = $request['devicetype'];
-        $timestamp = $request['timestamp'];
-        
         $result = array();
+        $result['uname'] = $admin_session['uname'];
         $response['errno'] = 0;
         $response['data']['content'] = $result;
         $this->renderJson($response['errno'], $response['data']);
@@ -333,7 +360,18 @@ class bugtrack extends MY_Controller{
         // 反转义
         //$info['content'] = stripslashes($info['content']);
         
-        $info['publish_time'] = time();
+        // 当前登录用户
+        $uname = $this->log_infos['uname'];
+        if (isset($this->bug_login_user[$uname])) {
+        	$uid = $this->bug_login_user[$uname]['id'];
+        } else {
+        	$uid = '1';
+        }
+        $info['create_user'] = $uid;
+        
+        $now_time = time();
+        $info['publish_time'] = $now_time;
+        $info['resolve_time'] = $now_time;
         if( $info['title']!='' && $info['content'] != '') {
             if($this->bugtrack_model->create_info($info)){
                 show_tips('操作成功','','','add');
@@ -417,6 +455,9 @@ class bugtrack extends MY_Controller{
         	);
         	$this->bugtrack_log_model->create_info($item);
         }
+        
+        $now_time = time();
+        $info['resolve_time'] = $now_time;
         
         if($info['title'] != '' && $info['content'] != '') {
             if($this->bugtrack_model->update_info($info, $id)){

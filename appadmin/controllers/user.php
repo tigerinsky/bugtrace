@@ -59,6 +59,7 @@ class user extends CI_Controller{
                 $user_login=array(
                     'keyno'=>$login_user['id'],
                     'user_name'=>$login_user['tname'],
+                    'uname'=>$login_user['uname'],
                     'user_local'=>encrypt($login_user['uname'].$login_user['pass_word']),
                     'role_id'=>$login_user['role_id'],
                     'ip'=>ip(),

@@ -18,7 +18,7 @@ class Bugtrack_model extends CI_Model {
      * @return int $data 分会符合条件二维数组
      */
     public function get_data_by_parm($where, $limit){
-        $query_data = "SELECT `id`, `title`, `content`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY id DESC {$limit}";
+        $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY resolve_time DESC {$limit}";
         $result_data = $this->dbr->query($query_data);
         $list_data = $result_data->result_array();
         return $list_data;
@@ -42,7 +42,7 @@ class Bugtrack_model extends CI_Model {
      * @return int $data 返回数据内容
      */
     public function get_info_by_id($id){
-        $query_data = "SELECT `id`, `title`, `content`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack WHERE id=?";
+        $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack WHERE id=?";
         $result_data = $this->dbr->query($query_data,array($id));
         $row_data = $result_data->row_array();
         if($row_data['id']>0){
