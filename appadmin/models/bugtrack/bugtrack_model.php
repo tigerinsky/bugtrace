@@ -18,7 +18,7 @@ class Bugtrack_model extends CI_Model {
      * @return int $data 分会符合条件二维数组
      */
     public function get_data_by_parm($where, $limit){
-        $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY resolve_time DESC, status ASC, priority ASC {$limit}";
+        $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY status ASC, priority ASC, resolve_time DESC {$limit}";
         $result_data = $this->dbr->query($query_data);
         $list_data = $result_data->result_array();
         // 格式化数据

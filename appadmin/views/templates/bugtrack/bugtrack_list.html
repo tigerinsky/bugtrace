@@ -59,7 +59,7 @@
             <th width="60">状态</th>
             <th width="120">更新时间</th>
             <th width="40">创建人</th>
-            <th width="80">创建时间</th>
+            <th width="120">创建时间</th>
             <th width="60">停留时间</th>
             <th width="100">管理操作</th>
             </tr>
@@ -77,7 +77,7 @@
 			<td align="center"><{if $row['status'] == '1'}><span class="RedBox"><{$status_list[$row['status']]}></span><{else}><span class="RedBox GreenBox"><{$status_list[$row['status']]}></span><{/if}></td>
             <td align="center"><{$row['resolve_time']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
 			<td align="center"><{$handle_user_list[$row['create_user']]}></td>
-            <td align="center"><{$row['publish_time']|date_format:'%m月%d %H:%M'}></td>
+            <td align="center"><{$row['publish_time']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
             <td align="center"><{$row['format_time']}></td>
             <td align="center">
                 <a href="javascript:edit(<{$row['id']}>,'<{$row['title']}>')">修改</a> | 
