@@ -141,7 +141,7 @@ class bugtrack extends MY_Controller{
         $priority_list = $this->bug_priority;
         $status_list = $this->bug_status;
         $search_arr['status_sel']=$this->form->select($status_list, $status_id,'name="status_id"','状态');
-        $search_arr['handle_user_sel']=$this->form->select($handle_user_list, $handle_user_id,'name="handle_user_id"','创建人或处理人');
+        $search_arr['handle_user_sel']=$this->form->select($handle_user_list, $handle_user_id,'name="handle_user_id"','负责人');
         $search_arr['priority_sel']=$this->form->select($priority_list, $priority_id,'name="priority_id"','优先级');
         $this->smarty->assign('search_arr', $search_arr);
         $this->smarty->assign('handle_user_list', $handle_user_list);

@@ -54,12 +54,12 @@
             <th width="40">ID</th>
             <th width="120">BUG标题</th>
             <th width="60">BUG内容</th>
-            <th width="40">创建人</th>
             <th width="40">处理人</th>
             <th width="60">优先级</th>
             <th width="60">状态</th>
-            <th width="120">发布时间</th>
             <th width="120">更新时间</th>
+            <th width="40">创建人</th>
+            <th width="120">创建时间</th>
             <th width="100">管理操作</th>
             </tr>
         </thead>
@@ -70,13 +70,13 @@
             <td align="center"><input class="inputcheckbox " name="ids[]" value="<{$row['id']}>" type="checkbox"></td>
             <td width="60" align="center"><{$row['id']}></td>
             <td><a href="javascript:detail(<{$row['id']}>,'<{$row['title']}>')"><{$row['title']}></a></td>
-            <td align="center"><{$row['content']|escape|truncate:15:"...":true}></td>
-			<td align="center"><{$handle_user_list[$row['create_user']]}></td>
+            <td align="center"><{$row['content']|escape|truncate:10:"...":true}></td>
 			<td align="center"><{$handle_user_list[$row['handle_user']]}></td>
 			<td align="center"><{$priority_list[$row['priority']]}></td>
 			<td align="center"><{if $row['status'] == '1'}><span class="RedBox"><{$status_list[$row['status']]}></span><{else}><span class="RedBox GreenBox"><{$status_list[$row['status']]}></span><{/if}></td>
-            <td align="center"><{$row['publish_time']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
             <td align="center"><{$row['resolve_time']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
+			<td align="center"><{$handle_user_list[$row['create_user']]}></td>
+            <td align="center"><{$row['publish_time']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
             <td align="center">
                 <a href="javascript:edit(<{$row['id']}>,'<{$row['title']}>')">修改</a> | 
 			    <a href="javascript:;" onclick="del_one(this,'<{$row['id']}>')">删除</a>
