@@ -428,7 +428,7 @@ class bugtrack extends MY_Controller{
         	if ($is_info == '') { // 新建
         		$item = array(
         				'bugtrack_id' => $id,
-        				'old_handle_user' => $old_info['handle_user'],
+        				'old_handle_user' => $old_info['create_user'],
         				'new_handle_user' => $old_info['handle_user'],
         				'type' => 1,
         				'ctime' => time(),
