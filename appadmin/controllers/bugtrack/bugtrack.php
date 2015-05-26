@@ -127,7 +127,7 @@ class bugtrack extends MY_Controller{
             $where=' WHERE '.join(' AND ',$where_array);
         }
 
-        $pagesize = 10;
+        $pagesize = 20;
         $offset = $pagesize*($page-1);
         $limit = "LIMIT $offset,$pagesize";
         
