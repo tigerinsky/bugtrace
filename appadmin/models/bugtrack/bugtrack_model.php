@@ -21,8 +21,51 @@ class Bugtrack_model extends CI_Model {
         $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY resolve_time DESC, status ASC, priority ASC {$limit}";
         $result_data = $this->dbr->query($query_data);
         $list_data = $result_data->result_array();
+        // 格式化数据
+        $list_data = $this->format_bugtrack_data($list_data);
         return $list_data;
     }
+    
+    /**
+     * 格式化函数
+     * ＠param array $list_data
+     * @return array $format_list_data
+     */
+    private function format_bugtrack_data($list_data) {
+    	$format_list_data = array();
+    	foreach ($list_data as $item) {
+    		$tmp_item = $item;
+    		$delay_time = intval($item['resolve_time']) - intval($item['publish_time']);
+    		if ($delay_time == 0) {
+    			$delay_time = time() - intval($item['publish_time']);
+    		}
+    		$format_time = $this->format_time($delay_time);
+    		$tmp_item['format_time'] = $format_time;
+    		$format_list_data[] = $tmp_item;
+    	}
+    	return $format_list_data;
+    }
+    
+    /**
+     * 格式化时间
+     * ＠param array $span
+     * @return array $str
+     */
+    private function format_time($span) {
+    	$format_time = '';
+    	if ($span < 60) {
+    		$format_time = "刚刚";
+    	} elseif ($span < 3600) {
+    		$format_time = intval($span/60) . "分钟前";
+    	} elseif ($span < 24*3600) {
+    		$format_time = intval($span/3600)."小时前";
+    	} else {
+    		$format_time = intval($span/(24*3600))."天前";
+    	}
+    	
+    	return $format_time;
+    }
+    
     
     /**
      * 计算出筛选条件下的数据的条数
