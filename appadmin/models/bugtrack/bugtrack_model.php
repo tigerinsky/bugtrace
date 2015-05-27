@@ -35,8 +35,9 @@ class Bugtrack_model extends CI_Model {
     	$format_list_data = array();
     	foreach ($list_data as $item) {
     		$tmp_item = $item;
-    		$delay_time = intval($item['resolve_time']) - intval($item['publish_time']);
-    		if ($delay_time == 0) {
+    		if ($item['type'] == 3 || $item['type'] == '3') {
+	    		$delay_time = intval($item['resolve_time']) - intval($item['publish_time']);
+    		} else {
     			$delay_time = time() - intval($item['publish_time']);
     		}
     		$format_time = $this->format_time($delay_time);
