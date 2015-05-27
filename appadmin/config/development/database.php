@@ -82,5 +82,22 @@ $db['dbr']['swap_pre'] = '';
 $db['dbr']['autoinit'] = TRUE;
 $db['dbr']['stricton'] = FALSE;
 
+$db['dbb']['hostname'] = $_SERVER['LJSRV_DB_HOST_B'];
+$db['dbb']['port']     = $_SERVER['LJSRV_DB_PORT_B'];
+$db['dbb']['username'] = $_SERVER['LJSRV_DB_USER_B'];
+$db['dbb']['password'] = $_SERVER['LJSRV_DB_PASS_B'];
+$db['dbb']['database'] = $_SERVER['LJSRV_DB_NAME_B'];
+$db['dbb']['dbdriver'] = 'mysql';
+$db['dbb']['dbprefix'] = 'ci_';
+$db['dbb']['pconnect'] = FALSE;
+$db['dbb']['db_debug'] = TRUE;
+$db['dbb']['cache_on'] = FALSE;
+$db['dbb']['cachedir'] = '';
+$db['dbb']['char_set'] = 'utf8';
+$db['dbb']['dbcollat'] = 'utf8_unicode_ci';
+$db['dbb']['swap_pre'] = '';
+$db['dbb']['autoinit'] = TRUE;
+$db['dbb']['stricton'] = FALSE;
+
 /* End of file database.php */
 /* Location: ./application/config/database.php */

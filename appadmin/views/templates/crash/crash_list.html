@@ -41,6 +41,7 @@
             <th width="50">Crash日志链接</th>
             <th width="50">APP版本</th>
             <th width="50">手机信息</th>
+            <th width="80">创建时间</th>
             <!--<th width="140">管理操作</th>-->
             </tr>
         </thead>
@@ -55,6 +56,7 @@
             <td align="center"><a href="<{$row['url']}>"><{$row['url']}></td>
             <td align="center"><{$row['app_version']}></td>
             <td align="center"><{$row['mobile_info']}></td>
+            <td align="center"><{$row['ctime']|date_format:'%Y-%m-%d %H:%M:%S'}></td>
             <!--
             <td align="center"><a href="javascript:edit(<{$row['id']}>,'<{$row['uname']}>')">修改</a> | <{if $row['status']==1 || $row['status']==-1}><font color="#cccccc">删除</font><{else}><a href="javascript:;" onclick="delete_one(this,'<{$row['id']}>')">删除</a><{/if}> | <a href="javascript:view(<{$row['id']}>,'<{$row['uname']}>')">查看详情</a>
             </td>

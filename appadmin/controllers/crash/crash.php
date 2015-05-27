@@ -7,10 +7,11 @@ class crash extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('form');
-        $this->dbr = $this->load->database("dbr", TRUE);
+        $this->dbr = $this->load->database("dbb", TRUE);
+        //$this->dbr = $this->load->database("dbr", TRUE);
         $this->load->config("common_config", TRUE);
         self::$common_config = $this->config->item('common_config');
-        $this->table_name = "ci_app_crash";
+        $this->table_name = "ci_app_upload";
     }
 
     public function index() {
@@ -36,11 +37,11 @@ class crash extends MY_Controller {
         $limit     = " LIMIT $offset,$pagesize";
 		//$order     = " ORDER BY id DESC";
 		$order     = " ORDER BY ctime DESC";
-        $sql_ct    = "SELECT id FROM ci_app_crash $where";
+        $sql_ct    = "SELECT id FROM $this->table_name $where";
         $query     = $this->dbr->query($sql_ct);
         $log_num   = $query->num_rows();
         $pages     = pages($log_num, $page, $pagesize);
-        $sql       = "SELECT id, uid, imei, url, app_version, mobile_info FROM ci_app_crash $where $order $limit";
+        $sql       = "SELECT id, uid, imei, url, app_version, mobile_info, ctime FROM $this->table_name $where $order $limit";
         $result    = $this->dbr->query($sql);
         $list_data = $result->result_array();
         //debug_show($list_data, 'list_data');
