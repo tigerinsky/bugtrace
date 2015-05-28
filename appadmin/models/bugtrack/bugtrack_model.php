@@ -18,7 +18,7 @@ class Bugtrack_model extends CI_Model {
      * @return int $data 分会符合条件二维数组
      */
     public function get_data_by_parm($where, $limit){
-        $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY status ASC, priority ASC, resolve_time DESC {$limit}";
+        $query_data = "SELECT `id`, `type`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack {$where} ORDER BY status ASC, priority ASC, resolve_time DESC {$limit}";
         $result_data = $this->dbr->query($query_data);
         $list_data = $result_data->result_array();
         // 格式化数据
@@ -35,7 +35,7 @@ class Bugtrack_model extends CI_Model {
     	$format_list_data = array();
     	foreach ($list_data as $item) {
     		$tmp_item = $item;
-    		if ($item['type'] == 3 || $item['type'] == '3') {
+    		if ($item['status'] == 2 || $item['status'] == '2') {
 	    		$delay_time = intval($item['resolve_time']) - intval($item['publish_time']);
     		} else {
     			$delay_time = time() - intval($item['publish_time']);
@@ -86,7 +86,7 @@ class Bugtrack_model extends CI_Model {
      * @return int $data 返回数据内容
      */
     public function get_info_by_id($id){
-        $query_data = "SELECT `id`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack WHERE id=?";
+        $query_data = "SELECT `id`, `type`, `title`, `content`, `create_user`, `handle_user`, `priority`, `status`, `publish_time`, `resolve_time`, `is_deleted` FROM ci_bugtrack WHERE id=?";
         $result_data = $this->dbr->query($query_data,array($id));
         $row_data = $result_data->row_array();
         if($row_data['id']>0){

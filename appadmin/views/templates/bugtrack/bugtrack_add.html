@@ -61,6 +61,14 @@
 					<td><input type="text" name="info[title]"  class="input-text wid300" value=""></td>
 				</tr>
 				<tr>
+					<td width="80">BUG类型</td>
+					<td>
+						<label><input name="info[type]" type="radio" value="1" checked />&nbsp;<img src="<{$sys_config['exten_pub_path']}>images/bugtype/android_32.png"  alt="android" /> </label>&nbsp;&nbsp;&nbsp;
+						<label><input name="info[type]" type="radio" value="2" />&nbsp;<img src="<{$sys_config['exten_pub_path']}>images/bugtype/ios_32.png"  alt="ios" /> </label>&nbsp;&nbsp;&nbsp;
+						<label><input name="info[type]" type="radio" value="3" />&nbsp;<img src="<{$sys_config['exten_pub_path']}>images/bugtype/server_32.png"  alt="server" /> </label>
+					</td>
+				</tr>
+				<tr>
 					<td>处理人</td>
 					<td>
 					    <{$handle_user_sel}>
