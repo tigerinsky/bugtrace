@@ -89,6 +89,9 @@ class bugtrack extends MY_Controller{
                     '12'=>'handle_user=12 OR create_user=12',
                     '13'=>'handle_user=13 OR create_user=13',
                     '14'=>'handle_user=14 OR create_user=14',
+                    '15'=>'handle_user=15 OR create_user=15',
+                    '16'=>'handle_user=16 OR create_user=16',
+                    '17'=>'handle_user=17 OR create_user=17',
                 ),
                 'priority'=>array(
                     '1'=>'priority=1',
