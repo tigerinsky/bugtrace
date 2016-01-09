@@ -81,6 +81,9 @@
             	<{if $row['type'] == '3'}>
             		<img src="<{$sys_config['exten_pub_path']}>images/bugtype/server_32.png"  alt="server" />
             	<{/if}>
+            	<{if $row['type'] == '4'}>
+            		<img src="<{$sys_config['exten_pub_path']}>images/bugtype/fe_32.jpg"  alt="fe" />
+            	<{/if}>
             </td>
             <td><a href="javascript:detail(<{$row['id']}>,'<{$row['title']}>')"><{$row['title']}></a></td>
             <td align="center"><{$row['content']|escape|truncate:10:"...":true}></td>
