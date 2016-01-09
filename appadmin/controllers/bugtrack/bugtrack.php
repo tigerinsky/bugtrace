@@ -40,7 +40,7 @@ class bugtrack extends MY_Controller{
         							'kaifeng'=>array('id'=>'2', 'name'=>'凯峰'),
         							'wangyi'=>array('id'=>'3', 'name'=>'王怡'),
         							'xuebing'=>array('id'=>'4', 'name'=>'雪冰'),
-        							'liuhao'=>array('id'=>'5', 'name'=>'浩哥'),
+        							'chenhao'=>array('id'=>'5', 'name'=>'浩哥'),
         							'dashan'=>array('id'=>'6', 'name'=>'大闪'),
         							'liujian'=>array('id'=>'7', 'name'=>'刘健'),
         							'wutong'=>array('id'=>'8', 'name'=>'吴桐'),
