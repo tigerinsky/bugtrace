@@ -15,6 +15,7 @@ class bugtrack extends MY_Controller{
         $this->load->model('bugtrack/bugtrack_model','bugtrack_model');
         $this->load->model('bugtrack/bugtrack_log_model','bugtrack_log_model');
         $this->bug_status = array('1'=>'未修复', '2'=>'已解决');
+        $this->bug_type = array('1'=>'Android', '2'=>'IOS', '3'=>'Server', '4'=>'FE');
         $this->bug_priority = array('1'=>'高', '2'=>'正常', '3'=>'低');
         $this->bug_handle_user = array(
         							'1'=>'飞哥',
@@ -104,6 +105,12 @@ class bugtrack extends MY_Controller{
                     '1'=>'status=1',
                     '2'=>'status=2',
                 ),
+                'type'=>array(
+                    '1'=>'type=1',
+                    '2'=>'type=2',
+                    '3'=>'type=3',
+                    '4'=>'type=4',
+                ),
             );
             
             if(intval($this->input->get('handle_user_id'))!=''){
@@ -122,6 +129,12 @@ class bugtrack extends MY_Controller{
                 $status_id=$this->input->get('status_id');
                 if($search_filed['status'][$status_id]!=''){
                     $where_array[]=$search_filed['status'][$status_id];
+                }
+            }
+            if(intval($this->input->get('type_id'))!=''){
+                $type_id=$this->input->get('type_id');
+                if($search_filed['type'][$type_id]!=''){
+                    $where_array[]=$search_filed['type'][$type_id];
                 }
             }
 
@@ -151,9 +164,11 @@ class bugtrack extends MY_Controller{
         $handle_user_list = $this->bug_handle_user;
         $priority_list = $this->bug_priority;
         $status_list = $this->bug_status;
+        $type_list = $this->bug_type;
         $search_arr['status_sel']=$this->form->select($status_list, $status_id,'name="status_id"','状态');
         $search_arr['handle_user_sel']=$this->form->select($handle_user_list, $handle_user_id,'name="handle_user_id"','负责人');
         $search_arr['priority_sel']=$this->form->select($priority_list, $priority_id,'name="priority_id"','优先级');
+        $search_arr['type_sel']=$this->form->select($type_list, $type_id,'name="type_id"','类型');
         $this->smarty->assign('search_arr', $search_arr);
         $this->smarty->assign('handle_user_list', $handle_user_list);
         $this->smarty->assign('priority_list', $priority_list);
