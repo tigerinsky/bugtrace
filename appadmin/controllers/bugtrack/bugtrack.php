@@ -158,7 +158,14 @@ class bugtrack extends MY_Controller{
         $user_num = $this->bugtrack_model->get_count_by_parm($where);
         $pages = pages($user_num, $page, $pagesize);
         $list_data = $this->bugtrack_model->get_data_by_parm($where, $limit);
-
+        
+        $res_content = array();
+        foreach($list_data as $item) {
+        	$item['title'] = str_replace('"','&quot;',$item['title']);
+        	$item['title'] = str_replace("'",'&#39;',$item['title']);
+        	$res_content[] = $item;
+        }
+        
         $this->load->library('form');
         //$img_type_list=array('1'=>'素描','2'=>'色彩','3'=>'速写','4'=>'设计','5'=>'创作','6'=>'照片');
         $handle_user_list = $this->bug_handle_user;
@@ -173,7 +180,7 @@ class bugtrack extends MY_Controller{
         $this->smarty->assign('handle_user_list', $handle_user_list);
         $this->smarty->assign('priority_list', $priority_list);
         $this->smarty->assign('status_list', $status_list);
-        $this->smarty->assign('list_data', $list_data);
+        $this->smarty->assign('list_data', $res_content);
         $this->smarty->assign('pages', $pages);
         $this->smarty->assign('show_dialog', 'true');
         $this->smarty->display('bugtrack/bugtrack_list.html');
@@ -414,6 +421,9 @@ class bugtrack extends MY_Controller{
         $this->load->library('form');
         $bugtrack_id = $this->input->get('id');
         $info = $this->bugtrack_model->get_info_by_id($bugtrack_id);
+        
+        $info['title'] = str_replace('"','&quot;',$info['title']);
+        $info['title'] = str_replace("'",'&#39;',$info['title']);
 		
         $handle_user_list = $this->bug_handle_user;
         $handle_user_sel = Form::select($handle_user_list, $info['handle_user'], 'id="handle_user" name="info[handle_user]"', '请选择');
@@ -501,6 +511,9 @@ class bugtrack extends MY_Controller{
     	$this->load->library('form');
     	$bugtrack_id = $this->input->get('id');
     	$info = $this->bugtrack_model->get_info_by_id($bugtrack_id);
+    	
+    	$info['title'] = str_replace('"','&quot;',$info['title']);
+    	$info['title'] = str_replace("'",'&#39;',$info['title']);
     	
     	$log_list = $this->bugtrack_log_model->get_info_by_bugid($bugtrack_id);
     	
