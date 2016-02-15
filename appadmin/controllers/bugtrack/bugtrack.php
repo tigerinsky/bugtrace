@@ -31,9 +31,7 @@ class bugtrack extends MY_Controller{
         							'11'=>'春晖',
         							'12'=>'黄辉',
         							'13'=>'桂哥',
-        							'14'=>'xiaojun',
         							'15'=>'郄培',
-        							'16'=>'喜东',
         							'17'=>'玥玥',
         						);
         $this->bug_login_user = array(
@@ -50,9 +48,7 @@ class bugtrack extends MY_Controller{
         							'chunhui'=>array('id'=>'11', 'name'=>'春晖'),
         							'huanghui'=>array('id'=>'12', 'name'=>'黄辉'),
         							'guige'=>array('id'=>'13', 'name'=>'桂哥'),
-        							'xiaojun'=>array('id'=>'14', 'name'=>'xiaojun'),
         							'qiepei'=>array('id'=>'15', 'name'=>'郄培'),
-        							'xidong'=>array('id'=>'16', 'name'=>'喜东'),
         							'yueyue'=>array('id'=>'17', 'name'=>'玥玥'),
         						);
     }
